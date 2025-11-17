@@ -535,156 +535,128 @@ footer {
 }
 
 /* ===== LEADERBOARD PAGE ===== */
+/* ===== LEADERBOARD PAGE (NEW UPDATED) ===== */
+
 .leaderboard-section {
-  background: linear-gradient(135deg, #290014, #4b0023, #6a0033);
-  min-height: 100vh;
+  background-color: #000;
+  padding: 60px 20px;
+  min-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
-  color: #fff;
+  position: relative;
 }
 
 .leaderboard-card {
-  background: radial-gradient(circle at top left, #ff0077, #330014);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 40px;
   width: 90%;
-  max-width: 600px;
-  box-shadow: 0 0 40px rgba(255, 0, 100, 0.6);
-  text-align: center;
-  position: relative;
+  max-width: 650px;
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
 }
 
 .leaderboard-title {
   font-size: 2rem;
-  color: #fff;
   font-weight: bold;
-  text-shadow: 0 0 15px #ff66b2;
-  margin-bottom: 30px;
-  letter-spacing: 2px;
+  color: #ff66b2;
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+  margin-bottom: 25px;
 }
 
-/* Leaderboard Rows */
+/* Leaderboard Entry Rows */
 .leaderboard-entry {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: rgba(255, 255, 255, 0.1);
-  margin: 15px 0;
-  padding: 12px 20px;
+  padding: 14px 20px;
   border-radius: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  margin: 12px 0;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.1);
 }
 
 .leaderboard-entry:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
   transform: scale(1.02);
 }
 
+/* Rank Icon */
 .rank {
-  font-size: 1.5rem;
-  color: gold;
-  width: 40px;
-  text-align: center;
-}
-
-.avatar {
   width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 2px solid gold;
-  margin: 0 15px;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #ffd700;
 }
 
+/* Avatar */
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #ff66b2;
+}
+
+/* Name */
 .name {
   flex: 1;
   text-align: left;
+  margin-left: 15px;
   font-size: 1.1rem;
-  color: #fff;
   font-weight: 600;
+  color: #fff;
 }
 
+/* Points */
 .points {
-  font-weight: bold;
   font-size: 1.2rem;
   color: #ffb3d9;
+  font-weight: 700;
 }
 
-/* Top 3 highlights */
-.first { background: rgba(255, 215, 0, 0.15); }
-.second { background: rgba(192, 192, 192, 0.15); }
-.third { background: rgba(205, 127, 50, 0.15); }
-
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #fff;
-  background-color: #1a0010;
-  font-size: 0.9rem;
+/* Highlight top 3 */
+.leaderboard-entry:nth-child(1) {
+  border-left: 4px solid gold;
 }
 
-
-/* ===== USER STATS (Top Right Corner) ===== */
-.user-stats {
-  position: absolute;
-  top: 30px;
-  right: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 15px 20px;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  text-align: left;
-  color: #ffd9ec;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(255, 100, 180, 0.3);
-  backdrop-filter: blur(5px);
+.leaderboard-entry:nth-child(2) {
+  border-left: 4px solid silver;
 }
 
-.user-stats strong {
-  color: #ff66b2;
+.leaderboard-entry:nth-child(3) {
+  border-left: 4px solid #cd7f32;
 }
 
-/* ===== VIEW MORE BUTTON ===== */
+/* View More Button */
 .view-more {
-  margin-top: 25px;
-  padding: 12px 30px;
-  background: linear-gradient(90deg, #ff0077, #ff66b2, #ff0077);
-  color: white;
-  font-weight: 600;
+  width: 100%;
+  padding: 12px 20px;
+  margin-top: 15px;
   border: none;
   border-radius: 30px;
-  cursor: pointer;
+  background: linear-gradient(90deg, #ff0077, #ff66b2, #ff0077);
+  color: white;
   font-size: 1rem;
-  letter-spacing: 1px;
-  transition: all 0.4s ease;
-  box-shadow: 0 0 15px rgba(255, 0, 120, 0.4);
-  animation: glowBorder 3s linear infinite;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+  transition: 0.3s ease;
 }
 
 .view-more:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255, 105, 180, 0.8);
+  box-shadow: 0 0 30px rgba(255, 150, 200, 0.8);
 }
 
-/* Glowing Border Animation */
-@keyframes glowBorder {
-  0% {
-    box-shadow: 0 0 15px rgba(255, 0, 120, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(255, 105, 180, 0.8);
-  }
-  100% {
-    box-shadow: 0 0 15px rgba(255, 0, 120, 0.4);
-  }
-}
 
-/* ===== POSITION FIXES ===== */
-.leaderboard-section {
-  position: relative; /* needed for user-stats positioning */
-}
+
+
+
+
+
 
 /* ===== CONTACT PAGE STYLING ===== */
 .contact-section {

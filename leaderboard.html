@@ -1,104 +1,129 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XNND6RF94Z"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-XNND6RF94Z');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leaderboard | EduCRED</title>
-  <link rel="stylesheet" href="style.css" />
-  
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XNND6RF94Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XNND6RF94Z');
+    </script>
 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard | EduCRED</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Excel Reader Library -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
 </head>
+
 <body>
 
-  <!-- ===== Navigation Bar ===== -->
-  <header>
-    <nav class="navbar">
-      <div class="logo">EduCRED</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="earnrewards.html">Earn Rewards</a></li>
-        <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+    <!-- ===== Navigation Bar ===== -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">EduCRED</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="earnrewards.html">Earn Rewards</a></li>
+                <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- ===== Leaderboard Section ===== -->
     <!-- ===== Leaderboard Section ===== -->
-  <section class="leaderboard-section">
+    <section class="leaderboard-section">
 
-    <!-- 🧍 User Info Box (Top Right) -->
-    <div class="user-stats">
-      <p><strong>Your Rank:</strong> #12</p>
-      <p><strong>Your Name:</strong> Deepika</p>
-      <p><strong>Your Points:</strong> 875</p>
-    </div>
+        <!-- Excel Upload Section -->
+        <div style="margin: 20px; text-align:center;">
+            <h2>Upload Leaderboard Excel File</h2>
+            <input type="file" id="excelFile" accept=".xlsx, .xls">
+        </div>
 
-    <div class="leaderboard-card">
-      <h2 class="leaderboard-title">🏆 LEADERBOARD 🏆</h2>
+        <div class="leaderboard-card">
+            <h2 class="leaderboard-title">🏆 LEADERBOARD 🏆</h2>
 
-      <div class="leaderboard-entry first">
-        <div class="rank">🥇</div>
-        <img src="images/avtar1.png" alt="User" class="avatar" />
-        <div class="name">Arjun</div>
-        <div class="points">1450</div>
-      </div>
+            <!-- Dynamic entries appear here -->
+            <div id="leaderboard-container"></div>
 
-      <div class="leaderboard-entry second">
-        <div class="rank">🥈</div>
-        <img src="images/avtar1.png" alt="User" class="avatar" />
-        <div class="name">Sia</div>
-        <div class="points">1320</div>
-      </div>
+            <button class="view-more" id="viewMoreBtn">View More</button>
+        </div>
 
-      <div class="leaderboard-entry third">
-        <div class="rank">🥉</div>
-        <img src="images/avtar1.png" alt="User" class="avatar" />
-        <div class="name">Deepika</div>
-        <div class="points">1275</div>
-      </div>
+    </section>
 
-      <div class="leaderboard-entry">
-        <div class="rank">4</div>
-        <img src="images/avtar1.png" alt="User" class="avatar" />
-        <div class="name">Ravi</div>
-        <div class="points">1210</div>
-      </div>
+    <footer>
+        <p>© 2025 EduCRED. All rights reserved.</p>
+    </footer>
 
-      <div class="leaderboard-entry">
-        <div class="rank">5</div>
-        <img src="images/avtar1.png" alt="User" class="avatar" />
-        <div class="name">Priya</div>
-        <div class="points">1150</div>
-      </div>
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        document.getElementById("excelFile").addEventListener("change", handleFile);
 
-      <div class="leaderboard-entry">
-        <div class="rank">6</div>
-        <img src="images/avtar1.png" alt="User" class="avatar" />
-        <div class="name">Rohan</div>
-        <div class="points">1090</div>
-      </div>
+        let studentData = [];
+        let showingAll = false;
 
-      <button class="view-more">View More</button>
-    </div>
-  </section>
+        function handleFile(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
 
-  <footer>
-    <p>© 2025 EduCRED. All rights reserved.</p>
-  </footer>
+            reader.onload = function (e) {
+                const data = e.target.result;
+                const workbook = XLSX.read(data, { type: "binary" });
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                const json = XLSX.utils.sheet_to_json(sheet);
+
+                // Sort by score (highest first)
+                studentData = json.sort((a, b) => b.Score - a.Score);
+
+                renderLeaderboard();
+            };
+
+            reader.readAsBinaryString(file);
+        }
+
+        function renderLeaderboard() {
+            const container = document.getElementById("leaderboard-container");
+            container.innerHTML = "";
+
+            let list = showingAll ? studentData : studentData.slice(0, 6);
+
+            list.forEach((student, index) => {
+                let rankIcon = index + 1;
+
+                if (rankIcon === 1) rankIcon = "🥇";
+                else if (rankIcon === 2) rankIcon = "🥈";
+                else if (rankIcon === 3) rankIcon = "🥉";
+
+                container.innerHTML += `
+                    <div class="leaderboard-entry">
+                        <div class="rank">${rankIcon}</div>
+                        <img src="images/avtar1.png" class="avatar">
+                        <div class="name">${student.Name}</div>
+                        <div class="points">${student.Score}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // View More Button
+        document.getElementById("viewMoreBtn").addEventListener("click", () => {
+            showingAll = !showingAll;
+            document.getElementById("viewMoreBtn").innerText = showingAll ? "Show Less" : "View More";
+            renderLeaderboard();
+        });
+
+    </script>
 
 </body>
+
 </html>
+
